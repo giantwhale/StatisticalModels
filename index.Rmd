@@ -4,7 +4,6 @@ author: "Yue Zhao"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
-output_dir: "docs"
 documentclass: book
 biblio-style: apalike
 link-citations: yes
@@ -12,5 +11,8 @@ github-repo: giantwhale/StatisticalModels
 description: "Statistical Models"
 ---
 
-# Prerequisite
+# Introduction {-}
+
+This book focuses on the theory, design, and implementation of various statistical and machine learning models. 
+
 
