@@ -1,4 +1,20 @@
 # Setup the Computing Environment
 
-xxx
+## Install R
+
+We recommend install R before install Anaconda Python, as the later will pollute the system environment (for instance, it might throw the `libcurl` version error.)
+
+After downloading the source code from https://www.r-project.org:
+
+```{r build-R, eval=FALSE}
+# configuration
+# run ./configure --help to see all available options
+./configure --prefix=/apps/R/R-x.y.z --enable-memory-profiling \
+    --enable-R-profiling
+
+# build and install R
+make 
+make install
+```
+
 
