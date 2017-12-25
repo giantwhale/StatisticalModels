@@ -2,19 +2,90 @@
 
 ## Install R
 
+We recommend install both regular R and the Microsoft R-Open. Even though the later is better optimized, it fails to install packages with compiled code, (see https://github.com/Microsoft/microsoft-r-open/issues/17). The solution is to install packages in regular R and use a shared library directory for both R instances. 
+
 We recommend install R before install Anaconda Python, as the later will pollute the system environment (for instance, it might throw the `libcurl` version error.)
 
-After downloading the source code from https://www.r-project.org:
+After downloading the source code from https://www.r-project.org: 
 
-```{r build-R, eval=FALSE}
+```{r build-R, eval=FALSE, engine='bash'}
 # configuration
 # run ./configure --help to see all available options
 ./configure --prefix=/apps/R/R-x.y.z --enable-memory-profiling \
-    --enable-R-profiling
+    --enable-R-profiling \
+    --enable-R-shlib
 
 # build and install R
 make 
 make install
+
+# Specify the directory for R packages. This is only needed if we 
+# want to install Microsoft R-Open as well. 
+mkdir -p /apps/R/lib-x.y.z
+echo '.libPaths("/apps/R/lib-x.y.z")' >> ~/.Rprofile
+
+# now run R
+/apps/R/R-x.y.z/bin/R --version
 ```
 
+## Install Python 
 
+
+
+## Writing Notes with `R::bookdown`
+
+### Create a new book on Github
+
+Follow the steps below to write a book named **Statistical Models**. First initiate the working directory:
+
+```{r init-bookdown, eval=FALSE, engine='bash'}
+mkdir StatisticalModels
+cd StatisticalModels
+```
+
+Create file `StatisticalModels.Rproj`:
+
+    Version: 1.0
+    
+    RestoreWorkspace: Default
+    SaveWorkspace: Default
+    AlwaysSaveHistory: Default
+    
+    EnableCodeIndexing: Yes
+    UseSpacesForTab: Yes
+    NumSpacesForTab: 2
+    Encoding: UTF-8
+    
+    RnwWeave: knitr
+    LaTeX: pdfLaTeX
+    
+    AutoAppendNewline: Yes
+    StripTrailingWhitespace: Yes
+    
+    BuildType: Website
+
+
+Create file `index.Rmd`:
+
+    --- 
+    title: "Statistical Models"
+    author: "Yue Zhao"
+    date: "`r Sys.Date()`"
+    site: bookdown::bookdown_site
+    output: bookdown::gitbook
+    documentclass: book
+    biblio-style: apalike
+    link-citations: yes
+    github-repo: giantwhale/StatisticalModels
+    description: "Statistical Models"
+    ---
+    
+    # Introduction {-}
+    
+    omitted ...
+
+Create file `_bookdown.yml`, so `bookdown` knows to output html files to the docs folder (need by github).
+
+    output_dir: "docs"
+
+Now we can start writing notes in `.Rmd` format.

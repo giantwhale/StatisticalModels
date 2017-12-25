@@ -25,7 +25,7 @@
 <meta name="author" content="Yue Zhao">
 
 
-<meta name="date" content="2017-12-24">
+<meta name="date" content="2017-12-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -102,8 +102,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="1" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html"><i class="fa fa-check"></i><b>1</b> Setup the Computing Environment</a><ul>
 <li class="chapter" data-level="1.1" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html#install-r"><i class="fa fa-check"></i><b>1.1</b> Install R</a></li>
+<li class="chapter" data-level="1.2" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html#install-python"><i class="fa fa-check"></i><b>1.2</b> Install Python</a></li>
+<li class="chapter" data-level="1.3" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html#writing-notes-with-rbookdown"><i class="fa fa-check"></i><b>1.3</b> Writing Notes with <code>R::bookdown</code></a><ul>
+<li class="chapter" data-level="1.3.1" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html#create-a-new-book-on-github"><i class="fa fa-check"></i><b>1.3.1</b> Create a new book on Github</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>2</b> Linear Regression Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>2</b> Linear Regression Models</a><ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#esl---overview-of-supervised-learning"><i class="fa fa-check"></i><b>2.1</b> ESL - Overview of Supervised Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -125,17 +131,78 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">1</span> Setup the Computing Environment</h1>
 <div id="install-r" class="section level2">
 <h2><span class="header-section-number">1.1</span> Install R</h2>
+<p>We recommend install both regular R and the Microsoft R-Open. Even though the later is better optimized, it fails to install packages with compiled code, (see <a href="https://github.com/Microsoft/microsoft-r-open/issues/17" class="uri">https://github.com/Microsoft/microsoft-r-open/issues/17</a>). The solution is to install packages in regular R and use a shared library directory for both R instances.</p>
 <p>We recommend install R before install Anaconda Python, as the later will pollute the system environment (for instance, it might throw the <code>libcurl</code> version error.)</p>
 <p>After downloading the source code from <a href="https://www.r-project.org" class="uri">https://www.r-project.org</a>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># configuration</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># configuration</span>
 <span class="co"># run ./configure --help to see all available options</span>
-.<span class="op">/</span>configure <span class="op">--</span>prefix=<span class="er">/</span>apps<span class="op">/</span>R<span class="op">/</span>R<span class="op">-</span>x.y.z <span class="op">--</span>enable<span class="op">-</span>memory<span class="op">-</span>profiling \
-    <span class="op">--</span>enable<span class="op">-</span>R<span class="op">-</span>profiling
+<span class="ex">./configure</span> --prefix=/apps/R/R-x.y.z --enable-memory-profiling \
+    --enable-R-profiling \
+    --enable-R-shlib
 
 <span class="co"># build and install R</span>
-make 
-make install</code></pre></div>
+<span class="fu">make</span> 
+<span class="fu">make</span> install
 
+<span class="co"># Specify the directory for R packages. This is only needed if we </span>
+<span class="co"># want to install Microsoft R-Open as well. </span>
+<span class="fu">mkdir</span> -p /apps/R/lib-x.y.z
+<span class="bu">echo</span> <span class="st">&#39;.libPaths(&quot;/apps/R/lib-x.y.z&quot;)&#39;</span> <span class="op">&gt;&gt;</span> ~/.Rprofile
+
+<span class="co"># now run R</span>
+<span class="ex">/apps/R/R-x.y.z/bin/R</span> --version</code></pre></div>
+</div>
+<div id="install-python" class="section level2">
+<h2><span class="header-section-number">1.2</span> Install Python</h2>
+</div>
+<div id="writing-notes-with-rbookdown" class="section level2">
+<h2><span class="header-section-number">1.3</span> Writing Notes with <code>R::bookdown</code></h2>
+<div id="create-a-new-book-on-github" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Create a new book on Github</h3>
+<p>Follow the steps below to write a book named <strong>Statistical Models</strong>. First initiate the working directory:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> StatisticalModels
+<span class="bu">cd</span> StatisticalModels</code></pre></div>
+<p>Create file <code>StatisticalModels.Rproj</code>:</p>
+<pre><code>Version: 1.0
+
+RestoreWorkspace: Default
+SaveWorkspace: Default
+AlwaysSaveHistory: Default
+
+EnableCodeIndexing: Yes
+UseSpacesForTab: Yes
+NumSpacesForTab: 2
+Encoding: UTF-8
+
+RnwWeave: knitr
+LaTeX: pdfLaTeX
+
+AutoAppendNewline: Yes
+StripTrailingWhitespace: Yes
+
+BuildType: Website</code></pre>
+<p>Create file <code>index.Rmd</code>:</p>
+<pre><code>--- 
+title: &quot;Statistical Models&quot;
+author: &quot;Yue Zhao&quot;
+date: &quot;2017-12-25&quot;
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+github-repo: giantwhale/StatisticalModels
+description: &quot;Statistical Models&quot;
+---
+
+# Introduction {-}
+
+omitted ...</code></pre>
+<p>Create file <code>_bookdown.yml</code>, so <code>bookdown</code> knows to output html files to the docs folder (need by github).</p>
+<pre><code>output_dir: &quot;docs&quot;</code></pre>
+<p>Now we can start writing notes in <code>.Rmd</code> format.</p>
+
+</div>
 </div>
 </div>
             </section>
