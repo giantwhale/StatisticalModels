@@ -5,7 +5,7 @@ date: "December 24, 2017"
 output: html_document
 ---
 
-## ESL - Overview of Supervised Learning
+# ESL - Overview of Supervised Learning
 
 ```{r }
 library(ElemStatLearn)

@@ -43,7 +43,7 @@ mkdir StatisticalModels
 cd StatisticalModels
 ```
 
-Create file `StatisticalModels.Rproj`:
+Create file `StatisticalModels.Rproj`. This enables `Build -> Build Book` in the RStudio IDE.
 
     Version: 1.0
     
@@ -89,3 +89,17 @@ Create file `_bookdown.yml`, so `bookdown` knows to output html files to the doc
     output_dir: "docs"
 
 Now we can start writing notes in `.Rmd` format.
+
+To enable github page, click on `Settings`, then go to `GitHub Pages Session -> Source`. Change `None` to `Master Branch /docs folder`. Once done, a link will appear in the same section. 
+
+
+## Continuous Integration with Travis
+
+Travis works well with github. It helps us __build__, __test__ and __deploy__ so we can focus on coding. The workflow is as the following:
+
+*. User runs build.
+*. Travis CI clones the GitHub repo into a brand new virtual env, build and test the code.
+    *. If one or more tasks failed, the build is considered __broken__.
+    *. If none of the tasks failed, the build is considered __passed__. Travis then deploys the code. 
+
+**Unfinished ...**

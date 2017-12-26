@@ -25,7 +25,7 @@
 <meta name="author" content="Yue Zhao">
 
 
-<meta name="date" content="2017-12-25">
+<meta name="date" content="2017-12-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -106,10 +106,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html#writing-notes-with-rbookdown"><i class="fa fa-check"></i><b>1.3</b> Writing Notes with <code>R::bookdown</code></a><ul>
 <li class="chapter" data-level="1.3.1" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html#create-a-new-book-on-github"><i class="fa fa-check"></i><b>1.3.1</b> Create a new book on Github</a></li>
 </ul></li>
+<li class="chapter" data-level="1.4" data-path="setup-the-computing-environment.html"><a href="setup-the-computing-environment.html#continuous-integration-with-travis"><i class="fa fa-check"></i><b>1.4</b> Continuous Integration with Travis</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>2</b> Linear Regression Models</a><ul>
-<li class="chapter" data-level="2.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#esl---overview-of-supervised-learning"><i class="fa fa-check"></i><b>2.1</b> ESL - Overview of Supervised Learning</a></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>2</b> Linear Regression Models</a></li>
+<li class="chapter" data-level="3" data-path="esl-overview-of-supervised-learning.html"><a href="esl-overview-of-supervised-learning.html"><i class="fa fa-check"></i><b>3</b> ESL - Overview of Supervised Learning</a></li>
 </ul>
 
       </nav>
@@ -162,7 +162,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Follow the steps below to write a book named <strong>Statistical Models</strong>. First initiate the working directory:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> StatisticalModels
 <span class="bu">cd</span> StatisticalModels</code></pre></div>
-<p>Create file <code>StatisticalModels.Rproj</code>:</p>
+<p>Create file <code>StatisticalModels.Rproj</code>. This enables <code>Build -&gt; Build Book</code> in the RStudio IDE.</p>
 <pre><code>Version: 1.0
 
 RestoreWorkspace: Default
@@ -185,7 +185,7 @@ BuildType: Website</code></pre>
 <pre><code>--- 
 title: &quot;Statistical Models&quot;
 author: &quot;Yue Zhao&quot;
-date: &quot;2017-12-25&quot;
+date: &quot;2017-12-26&quot;
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -201,8 +201,15 @@ omitted ...</code></pre>
 <p>Create file <code>_bookdown.yml</code>, so <code>bookdown</code> knows to output html files to the docs folder (need by github).</p>
 <pre><code>output_dir: &quot;docs&quot;</code></pre>
 <p>Now we can start writing notes in <code>.Rmd</code> format.</p>
-
+<p>To enable github page, click on <code>Settings</code>, then go to <code>GitHub Pages Session -&gt; Source</code>. Change <code>None</code> to <code>Master Branch /docs folder</code>. Once done, a link will appear in the same section.</p>
 </div>
+</div>
+<div id="continuous-integration-with-travis" class="section level2">
+<h2><span class="header-section-number">1.4</span> Continuous Integration with Travis</h2>
+<p>Travis works well with github. It helps us <strong>build</strong>, <strong>test</strong> and <strong>deploy</strong> so we can focus on coding. The workflow is as the following:</p>
+<p><em>. User runs build. </em>. Travis CI clones the GitHub repo into a brand new virtual env, build and test the code. <em>. If one or more tasks failed, the build is considered <strong>broken</strong>. </em>. If none of the tasks failed, the build is considered <strong>passed</strong>. Travis then deploys the code.</p>
+<p><strong>Unfinished …</strong></p>
+
 </div>
 </div>
             </section>
